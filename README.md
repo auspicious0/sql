@@ -1,4 +1,4 @@
-#Structured Query Language
+# Structured Query Language
 
 ## 1. create and choice database
 ```
@@ -598,4 +598,3 @@ SELECT CAST(column1 AS VARCHAR(255)) AS new_column
 FROM table_name;
 ```
 
-~~~```
