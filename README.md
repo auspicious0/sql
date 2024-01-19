@@ -1,69 +1,125 @@
-Structured Query Language
+#Structured Query Language
 
-1. create and choice database
-데이터 베이스 생성: 
+## 1. create and choice database
+```
+데이터 베이스 생성:
+
 CREATE DATABASE database_name;
-데이터베이스 선택: 
-USE database_name;
 
-2. create table
+데이터베이스 선택:
+
+USE database_name;
+```
+## 2. create table
+
+```
 테이블 생성: CREATE TABLE table_name(
 		column1 datatype,
 		column2 datatype,
 		...
 		);
+```
 
-3. insert data
+## 3. insert data
 데이터 삽입: 
+
+```
 INSERT INTO table_name(column1, column2, ...)
 VALUES (value1, value2, ...) 
+```
 
-4. find data
+## 4. find data
 모든 데이터 조회: 
+```
 SELECT * FROM table_name;
+```
+
 특정 열 데이터 조회: 
+
+```
 SELECT column1, column2, ... FROM table_name;
+```
 
-5. find data with condition:
-WHERE 절 사용: SELECT * FROM table_name
-                    WHERE condition;
+## 5. find data with condition:
 
-6. update data
+WHERE 절 사용: 
+
+```
+SELECT * FROM table_name
+WHERE condition;
+```
+
+## 6. update data
+
 데이터 업데이트: 
+
+```
 UPDATE table_name
 SET column1 = value1, column2 = value2, ...
 WHERE contidion;
+```
 
-7. delete data
+## 7. delete data
+
 데이터 삭제:
+
+```
 DELETE FROM table_name
 WHERE condition;
+```
 
-8. sorting
+## 8. sorting
+
 오름차순 정렬: 
+
+```
 SELECT * FROM table_name
 ORDER BY column_name ASC;
+```
+
 내림차순 정렬: 
+
+```
 SELECT * FROM table_name
 ORDER BY column_name DESC;
+```
 
-9. grouping and total
+## 9. grouping and total
+
 그룹화: 
+
+```
 SELECT column1, COUNT(column2) FROM table_name
 GROUP BY column1;
+```
 
-집계함수: SELECT AVG(column_name) FROM table_name;
+집계함수: 
 
-10. JOIN
-INNER JOIN: SELECT column1, column2, ...
-                FROM table1
-                INNER JOIN table2 ON table1.column_name = table2.column_name;
+```
+SELECT AVG(column_name) FROM table_name;
+```
 
-LEFT JOIN: SELECT column1, column2, ...
-              FROM table1
-              LEFT JOIN table2 ON table1.column_name = table2.column_name;
+## 10. JOIN
 
-11. 조건 연산자:
+INNER JOIN: 
+
+```
+SELECT column1, column2, ...
+FROM table1
+INNER JOIN table2 ON table1.column_name = table2.column_name;
+```
+
+LEFT JOIN: 
+
+```
+SELECT column1, column2, ...
+FROM table1
+LEFT JOIN table2 ON table1.column_name = table2.column_name;
+```
+
+## 11. 조건 연산자:
+
+```
 =
 <> !=
 <
@@ -73,33 +129,56 @@ LEFT JOIN: SELECT column1, column2, ...
 BETWEEN(특정 범위 내)
 LIKE (부분 문자열 매칭)
 IN (값이 목록에 포함)
+```
 
-12. BETWEEN
+## 12. BETWEEN
+
 특정 범위 내의 값을 선택
+
+```
 SELECT * FROM products
 WHERE price BETWEEN 500 AND 1000;
+```
 
-13. LIKE
-부분 문자열 매칭
+## 13. LIKE
+
+부분 문자열 매칭:
+
+```
 SELECT * FROM products
 WHERE product_name LIKE '%Smart';
+```
 
-14. IN:
+## 14. IN:
+
 목록에 값 포함 유무
+
+```
 SELECT * FROM products
 WHERE price IN (300, 600);
+```
 
-15. 서브쿼리:
+## 15. 서브쿼리
+
 단일 행 서브쿼리: 
+
+```
 SELECT column1
 FROM table1
 WHERE column2 = (SELECT column2 FROM table2 WHERE condition);
+```
+
 다중 행 서브쿼리:
+
+```
 SELECT column1
 FROM table1
 WHERE column2 IN (SELECT column2 FROM table2 WHERE condition);
-16. 테이블 별칭
+```
 
+## 16. 테이블 별칭
+
+```
 Table1 (t1)
 +--------+--------+
 | column1| column |
@@ -108,7 +187,8 @@ Table1 (t1)
 | Data2  | Value2 |
 | Data3  | Value3 |
 +--------+--------+
-
+```
+```
 Table2 (t2)
 +--------+--------+
 | column2| column |
@@ -117,12 +197,16 @@ Table2 (t2)
 | DataB  | Value2 |
 | DataC  | Value3 |
 +--------+--------+
-
+```
 테이블 별칭 사용:
+
+```
 SELECT t1.column1, t2.column2
 FROM tables AS t1
 JOIN tables2 AS t2 ON t1.column = t2.column;
+```
 
+```
 Result
 +--------+--------+
 | column1| column2|
@@ -131,12 +215,19 @@ Result
 | Data2  | DataB  |
 | Data3  | DataC  |
 +--------+--------+
+```
 
-17. 중복 행 제거
+## 17. 중복 행 제거
+
 중복 행 제거:
-SELECT DISTINCT column1, column2 FROM table_name;
 
-18. NULL 값 처리
+```
+SELECT DISTINCT column1, column2 FROM table_name;
+```
+
+## 18. NULL 값 처리
+
+```
 table_name
 +--------+--------+
 | column1| column2|
@@ -147,9 +238,15 @@ table_name
 | Data4  | NULL   |
 | Data5  | Value5 |
 +--------+--------+
-NULL 값 확인:
-SELECT column1 FROM table_name WHERE column2 IS  NULL;
+```
 
+NULL 값 확인:
+
+```
+SELECT column1 FROM table_name WHERE column2 IS  NULL;
+```
+
+```
 Result
 +--------+
 | column1|
