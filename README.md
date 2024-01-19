@@ -254,10 +254,15 @@ Result
 | Data2  |
 | Data4  |
 +--------+
+```
 
 NULL 값 대체:
-SELECT column1, COALESCE(column2, 'N/A') AS column2_alias FROM table_name;
 
+```
+SELECT column1, COALESCE(column2, 'N/A') AS column2_alias FROM table_name;
+```
+
+```
 Result
 +--------+-------------+
 | column1| column2_alias|
@@ -268,13 +273,19 @@ Result
 | Data4  | N/A         |
 | Data5  | Value5      |
 +--------+-------------+
+```
 
-19. 인덱스
+## 19. 인덱스
+
 인덱스 생성:
+
+```
 CREATE INDEX index_name ON table_name (column1, column2,...)
+```
 
-20. 쿼리 실습 1
+## 20. 쿼리 실습 1
 
+```
 products
 +-----------+--------------+-------------+-------+
 | product_id| product_name | category_id | price |
@@ -283,7 +294,9 @@ products
 | 2         | Smartphone   | 2           | 500   |
 | 3         | Tablet       | 1           | 300   |
 +-----------+--------------+-------------+-------+
+```
 
+```
 categories
 +-------------+------------------+
 | category_id | category_name    |
@@ -292,31 +305,45 @@ categories
 | 2           | Mobile Devices    |
 | 3           | Home Appliances   |
 +-------------+------------------+
+```
 
+```
 SELECT products.*, categories.category_name
 FROM products
 JOIN categories ON products.category_id = categories.category_id
 WHERE products.category_id = 1;
-
+```
+```
 +-----------+--------------+-------------+-------+------------------+
 | product_id| product_name | category_id | price | category_name    |
 +-----------+--------------+-------------+-------+------------------+
 | 1         | Laptop       | 1           | 800   | Electronics      |
 | 3         | Tablet       | 1           | 300   | Electronics      |
 +-----------+--------------+-------------+-------+------------------+
+```
+## 21. 트랜잭션: 
 
-21. 트랜잭션: 
 트랜잭션 시작:
+
+```
 START TRANSACTION;
+```
 
 트랜잭션 커밋:
+
+```
 COMMIT;
+```
 
 트랜잭션 롤백:
+
+```
 ROLLBACK;
+```
 
 22. 쿼리 실습 2
 
+```
 users
 +---------+----------+
 | user_id | username |
@@ -324,7 +351,9 @@ users
 | 1       | user1    |
 | 2       | user2    |
 +---------+----------+
+```
 
+```
 account
 +---------+---------+
 | user_id | balance |
@@ -332,7 +361,9 @@ account
 | 1       | 500     |
 | 2       | 800     |
 +---------+---------+
+```
 
+```
 -- 트랜잭션 시작
 START TRANSACTION;
 
@@ -344,7 +375,9 @@ UPDATE users SET username = 'newuser1' WHERE user_id = 1;
 
 -- 트랜잭션 커밋
 COMMIT;
+```
 
+```
 -- 트랜잭션 시작
 START TRANSACTION;
 
@@ -355,19 +388,31 @@ UPDATE account SET balance = balance - 100 WHERE user_id = 1;
 
 -- 트랜잭션 롤백
 ROLLBACK;
+```
 
-23. 유저 및 권한 관리
+## 23. 유저 및 권한 관리
+
 유저 생성:
+
+```
 CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+```
 
 권한 부여:
+
+```
 GRANT SELECT, INSERT ON database_name.table_name TO 'username'@'localhost';
+```
 
 권한 취소:
+
+```
 REVOKE SELECT ON database_name.table_name FROM 'username'@'localhost';
+```
 
-24. 집합 연산자
+## 24. 집합 연산자
 
+```
 table1
 +--------+
 | column1|
@@ -375,7 +420,9 @@ table1
 | Data1  |
 | Data2  |
 | Data3  |
+```
 
+```
 table2
 +--------+
 | column1|
@@ -383,12 +430,16 @@ table2
 | Data2  |
 | Data3  |
 | Data4  |
+```
 
+```
 UNION(중복 행 제거)
 SELECT column1 FROM table1
 UNION
 SELECT column1 FROM table2;
+```
 
+```
 +--------+
 | column1|
 +--------+
@@ -396,12 +447,14 @@ SELECT column1 FROM table2;
 | Data2  |
 | Data3  |
 | Data4  |
-
+```
+```
 UNION ALL(중복 행 포함)
 SELECT column1 FROM table1
 UNION ALL
 SELECT column1 FROM table2;
-
+```
+```
 +--------+
 | column1|
 +--------+
@@ -411,16 +464,19 @@ SELECT column1 FROM table2;
 | Data2  |
 | Data3  |
 | Data4  |
+```
 
-25. 피벗 (PIVOT) 및 언피벗(UNPIVOT)
+## 25. 피벗 (PIVOT) 및 언피벗(UNPIVOT)
 
+```
 | category | value |
 |----------|-------|
 | A        | 10    |
 | B        | 20    |
 | C        | 30    |
+```
 
-
+```
 PIVOT:
 SELECT *
 FROM(
@@ -429,12 +485,15 @@ FROM(
 PIVOT(
 	SUM(value) FOR category IN ([Category1], [Category2], [Category3])
 ) As PivotTable;
+```
 
+```
 | A  | B  | C  |
 |----|----|----|
 | 10 | 20 | 30 |
 
-
+```
+```
 UNPIVOT:
 SELECT category, value
 FROM (
@@ -443,24 +502,32 @@ FROM (
 UNPIVOT(
 	value FOR category IN ([Category1], [Category2], [Category3])
 ) AS UnpivotedTable;
-
+```
+```
 | category | value |
 |----------|-------|
 | A        | 10    |
 | B        | 20    |
 | C        | 30    |
+```
 
+## 26. LIKE 연산자와 와일드카드:
 
-26. LIKE 연산자와 와일드카드:
 와일드카드 사용:
+
+```
 -- '%'는 0개 이상 문자와 매치
 SELECT * FROM table_name WHERE column1 LIKE 'pattern%';
 -- '_'는 정확히 1개의 문자와 매치
 SELECT * FROM table_name WHERE column1 LIKE 'a_';
+```
 
-27. CASE 문
+## 27. CASE 문
+
 
 CASE 문 사용:
+
+```
 SELECT column1,
 	CASE
 		WHEN condition1 THEN 'Value1'
@@ -468,10 +535,13 @@ SELECT column1,
 		ELSE 'DefaultValue'
 	END AS new_column
 FROM table_name;
+```
 
-28. 서브쿼리에서 TOP N:
+## 28. 서브쿼리에서 TOP N
+
 서브쿼리에서 TOP N:
 
+```
 | column1 | column2 |
 |----------|----------|
 | A        | Data1    |
@@ -479,7 +549,9 @@ FROM table_name;
 | C        | Data3    |
 | D        | Data4    |
 | E        | Data5    |
+```
 
+```
 | column1 | column3 |
 |----------|---------|
 | A        | 10      |
@@ -487,12 +559,14 @@ FROM table_name;
 | C        | 5       |
 | D        | 20      |
 | E        | 12      |
+```
 
-
+```
 SELECT column1, column2
 FROM table_name
 WHERE column1 IN (SELECT TOP 5 column1 FROM another_table ORDER BY column3 DESC);
-
+```
+```
 | column1 | column2 |
 |----------|----------|
 | D        | Data4    |
@@ -500,16 +574,28 @@ WHERE column1 IN (SELECT TOP 5 column1 FROM another_table ORDER BY column3 DESC)
 | B        | Data2    |
 | E        | Data5    |
 | C        | Data3    |
+```
+## 29. 날짜 및 시간 함수
 
-29. 날짜 및 시간 함수
 현재 날짜 및 시간:
+
+```
 SELECT CURRENT_DATE, CURRENT_TIME, CURRENT_TIMESTAMP;(날짜, 시간, 날짜와 시간)
+```
 
 날짜 및 시간 연산:
+
+```
 SELECT column1, column2, column3 + INTERVAL 7 DAY AS new_data
 FROM table_name;
+```
 
-30. 데이터 유형 변환
+## 30. 데이터 유형 변환
+
 데이터 유형 변환:
+```
 SELECT CAST(column1 AS VARCHAR(255)) AS new_column
 FROM table_name;
+```
+
+~~~```
